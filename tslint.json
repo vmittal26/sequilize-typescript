@@ -1,0 +1,15 @@
+{
+    "extends": "tslint:recommended",
+    "rules": {
+      "max-line-length": {
+        "options": [100]
+      },
+      "member-ordering": false,
+      "no-consecutive-blank-lines": true,
+      "no-unused-variable": true,
+      "object-literal-sort-keys": false,
+      "quotemark": [true, "single"],
+      "ordered-imports": false,
+      "variable-name": [true, "allow-leading-underscore"]
+    }
+  }
