@@ -1,4 +1,7 @@
-import { saveUser } from './service/UserService';
+
+import { IVehicle } from './models/Vehicle';
+import { findVehicle, saveVehicle } from "./service/VehicleService";
+import { saveUser, findUser } from "./service/UserService";
 import { sequelize } from "./database";
 import bodyParser from "body-parser";
 import express from "express";
@@ -12,21 +15,25 @@ app.use(bodyParser.json());
 //   console.info(user);
 // });
 
-
 const user: IUser = {
-    firstName: "Manoj",
-    lastName: "Kumar",
-    email: "aa@gmail.com",
-    password: "reterer",
-    userAddress: "erererer",
-    vehicles:[
-      {
-        vehicleType:'Bike',
-      }
-    ]
-  };
+  firstName: "Mohan",
+  lastName: "Arora",
+  email: "ma@gmail.com",
+  password: "ma",
+  userAddress: "ma",
+  vehicles: [
+    {
+      vehicleType: "Bike",
+      vehicleName:'Yamaha'
+    },
+  ],
+};
 
-saveUser(user);
+const vehicle:IVehicle = {
+  vehicleType: "Bike",
+  vehicleName:'Suzuki',
+  user
+};
 
 // app.use('/' , (req , res , next) => {
 //    console.log('In Middleware')
@@ -42,6 +49,11 @@ app.listen(5000, () => {
 
       try {
         await sequelize.sync();
+        // saveUser(user);
+        // const vehicle = await findVehicle();
+        // console.log({ vehicle : JSON.parse(JSON.stringify(vehicle))});
+        // saveVehicle(vehicle);
+        findUser();
       } catch (error) {
         console.log(error.message);
       }

@@ -1,11 +1,12 @@
 import { Model, Table, AutoIncrement, PrimaryKey, Column, AllowNull, NotEmpty, BelongsTo, ForeignKey } from "sequelize-typescript";
-import User from "./User";
+import User, {IUser} from "./User";
 
 export interface IVehicle{
     id?:number,
     vehicleType:string,
+    vehicleName:string,
     userId?:number,
-    user?:User;
+    user?:IUser;
 }
 
 @Table(
@@ -26,12 +27,18 @@ export default class Vehicle extends Model<Vehicle> implements IVehicle{
     @Column
     vehicleType!: string;
 
+    
+    @AllowNull(false)
+    @NotEmpty
+    @Column
+    vehicleName!: string;
+
     @ForeignKey(() => User)
     @Column
     userId?: number;
 
     @BelongsTo(() => User)
-    user?: User;
+    user?: IUser;
 
 }
 
