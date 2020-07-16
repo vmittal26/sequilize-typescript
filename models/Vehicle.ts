@@ -1,44 +1,53 @@
-import { Model, Table, AutoIncrement, PrimaryKey, Column, AllowNull, NotEmpty, BelongsTo, ForeignKey } from "sequelize-typescript";
-import User, {IUser} from "./User";
+import VehicleType, { IVehicleType } from "./VehicleType";
+import {
+  Model,
+  Table,
+  AutoIncrement,
+  PrimaryKey,
+  Column,
+  AllowNull,
+  NotEmpty,
+  BelongsTo,
+  ForeignKey,
+} from "sequelize-typescript";
 
-export interface IVehicle{
-    id?:number,
-    vehicleType:string,
-    vehicleName:string,
-    userId?:number,
-    user?:IUser;
+import User, { IUser } from "./User";
+
+export interface IVehicle {
+  vehicle_id?: number;
+  vehicle_name: string;
+  user_id?: number;
+  user?: IUser;
+  vehicletype_id:number;
+  vehicle_type?: IVehicleType;
 }
 
-@Table(
-    {
-        tableName: "vehicle",
-        timestamps: true
-    }
-)
-export default class Vehicle extends Model<Vehicle> implements IVehicle{
+@Table({
+  tableName: "vehicle",
+  timestamps: true,
+})
+export default class Vehicle extends Model<Vehicle> implements IVehicle {
+  @AutoIncrement
+  @PrimaryKey
+  @Column
+  vehicle_id?: number;
 
-    @AutoIncrement
-    @PrimaryKey
-    @Column
-    id?: number;
+  @AllowNull(false)
+  @NotEmpty
+  @Column
+  vehicle_name!: string;
 
-    @AllowNull(false)
-    @NotEmpty
-    @Column
-    vehicleType!: string;
+  @ForeignKey(() => User)
+  @Column
+  user_id?: number;
 
-    
-    @AllowNull(false)
-    @NotEmpty
-    @Column
-    vehicleName!: string;
+  @BelongsTo(() => User , 'user_id')
+  user?: IUser;
 
-    @ForeignKey(() => User)
-    @Column
-    userId?: number;
+  @ForeignKey(() => VehicleType)
+  @Column
+  vehicletype_id!: number;
 
-    @BelongsTo(() => User)
-    user?: IUser;
-
+  @BelongsTo(() => VehicleType , 'vehicletype_id')
+  vehicle_type!: IVehicleType;
 }
-

@@ -2,12 +2,12 @@ import Vehicle, { IVehicle } from './Vehicle';
 import { Model, Table, AutoIncrement, PrimaryKey, Column, AllowNull, NotEmpty, HasMany } from "sequelize-typescript";
 
 export interface IUser{
-    id?: number | null
-    firstName: string
-    lastName: string
+    user_id?: number | null
+    first_name: string
+    last_name: string
     email: string
     password: string
-    userAddress:string
+    user_address:string
     vehicles: IVehicle[];
 }
 
@@ -22,17 +22,17 @@ export default class User extends Model<User> implements IUser{
     @AutoIncrement
     @PrimaryKey
     @Column
-    id?: number
+    user_id?: number
     
     @AllowNull(false)
     @NotEmpty
     @Column
-    firstName!: string
+    first_name!: string
 
     @AllowNull(false)
     @NotEmpty
     @Column
-    lastName!: string;
+    last_name!: string;
 
     @AllowNull(false)
     @NotEmpty
@@ -48,7 +48,7 @@ export default class User extends Model<User> implements IUser{
     @AllowNull(false)
     @NotEmpty
     @Column
-    userAddress!: string;
+    user_address!: string;
 
     @HasMany(() => Vehicle)
     vehicles!:IVehicle[];
